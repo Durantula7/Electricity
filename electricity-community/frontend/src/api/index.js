@@ -28,6 +28,7 @@ export default request
 export const login = (data) => request.post('/auth/login', data)
 
 // Application
+export const getDashboardStats = () => request.get('/application/stats')
 export const createApplication = (data) => request.post('/application', data)
 export const getApplicationList = (params) => request.get('/application/list', { params })
 export const getApplicationDetail = (id) => request.get(`/application/${id}`)

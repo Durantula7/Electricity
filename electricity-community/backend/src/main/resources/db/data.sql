@@ -93,9 +93,19 @@ INSERT IGNORE INTO sys_dict (dict_type, dict_code, dict_value, sort_order) VALUE
 ('approval_mode', 'SERIAL', '串行审批', 1),
 ('approval_mode', 'PARALLEL', '并行审批', 2),
 -- 业务类型
-('business_type', 'NEW_INSTALL', '小区新装', 1);
+('business_type', 'NEW_INSTALL', '小区新装', 1),
+-- 行业类别
+('industry_category', 'RESIDENTIAL', '住宅', 1),
+('industry_category', 'COMMERCIAL', '商业', 2),
+('industry_category', 'MIXED', '商住混合', 3);
 
+-- =============================================
+-- 模拟业务数据 - 8个处于不同流程阶段的申请
+-- =============================================
 
+-- ============================================
+-- 1. 碧桂园翡翠湾 - 业务受理阶段
+-- ============================================
 INSERT IGNORE INTO application_info (id, application_no, business_type, customer_name, district, electricity_address, contact_person, contact_phone, cert_type, cert_no, electricity_category, capacity, industry_category, load_nature, power_supply_unit, household_count, remark, process_status, process_status_name, accept_user_id, accept_user_name, accept_time) VALUES
 (1, 'SQ20260115001', 'NEW_INSTALL', '碧桂园翡翠湾置业有限公司', '朝阳区', '朝阳区东风南路88号碧桂园翡翠湾', '陈建国', '13801001234', 'BUSINESS_LICENSE', '91110105MA00XXXXX1', 'L1', 8000.00, 'RESIDENTIAL', 'NORMAL', '国网朝阳供电公司', 1200, '新建高层住宅小区，共8栋楼，1200户', 'BUSINESS_ACCEPTANCE', '业务受理', 2, '受理员张三', '2026-01-15 09:30:00');
 
@@ -394,4 +404,3 @@ INSERT IGNORE INTO process_record (application_id, process_step, process_step_na
 (8, 'FEE_DETERMINE', '确定费用', 8, '费用员周九', 'submit', '费用确定', '2026-05-29 17:00:00', '2026-05-30 08:30:00'),
 (8, 'FEE_COLLECTION', '业务收费', 9, '收费员吴十', 'submit', '收费完成', '2026-05-30 08:30:00', '2026-05-30 09:00:00'),
 (8, 'PROJECT_TRACKING', '供电工程进度跟踪', 10, '工程管理员郑一', 'submit', '工程跟踪完成，设计文件提交审核', '2026-05-30 09:00:00', '2026-05-30 09:00:00');
-

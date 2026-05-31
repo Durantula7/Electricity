@@ -118,6 +118,22 @@ public class ApplicationService {
         );
     }
 
+    public java.util.Map<String, Long> getDashboardStats() {
+        java.util.Map<String, Long> stats = new java.util.LinkedHashMap<>();
+        stats.put("total", applicationInfoMapper.selectCount(null));
+        stats.put("businessAcceptance", applicationInfoMapper.selectCount(
+                new LambdaQueryWrapper<ApplicationInfo>().eq(ApplicationInfo::getProcessStatus, "BUSINESS_ACCEPTANCE")));
+        stats.put("surveyDispatch", applicationInfoMapper.selectCount(
+                new LambdaQueryWrapper<ApplicationInfo>().eq(ApplicationInfo::getProcessStatus, "SURVEY_DISPATCH")));
+        stats.put("fieldSurvey", applicationInfoMapper.selectCount(
+                new LambdaQueryWrapper<ApplicationInfo>().eq(ApplicationInfo::getProcessStatus, "FIELD_SURVEY")));
+        stats.put("approval", applicationInfoMapper.selectCount(
+                new LambdaQueryWrapper<ApplicationInfo>().eq(ApplicationInfo::getProcessStatus, "APPROVAL")));
+        stats.put("finished", applicationInfoMapper.selectCount(
+                new LambdaQueryWrapper<ApplicationInfo>().eq(ApplicationInfo::getProcessStatus, "FINISHED")));
+        return stats;
+    }
+
     public List<ProcessRecord> getProcessHistory(Long applicationId) {
         return processRecordMapper.selectList(
                 new LambdaQueryWrapper<ProcessRecord>()

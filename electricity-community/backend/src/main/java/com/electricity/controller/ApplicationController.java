@@ -27,6 +27,11 @@ public class ApplicationController {
         return Result.ok(applicationService.createApplication(app, customer, equipment, userId, userName));
     }
 
+    @GetMapping("/stats")
+    public Result<java.util.Map<String, Long>> stats() {
+        return Result.ok(applicationService.getDashboardStats());
+    }
+
     @GetMapping("/list")
     public Result<PageResult<ApplicationInfo>> list(
             @RequestParam(defaultValue = "1") Integer pageNum,

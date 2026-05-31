@@ -37,7 +37,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { getDashboardStats } from '../../api'
 
 const statCards = ref([
   { title: '待受理', count: 0, color: '#409eff', icon: 'Document', route: '/business-acceptance' },
@@ -54,4 +55,17 @@ const quickActions = ref([
   { label: '信息归档', route: '/info-archive' },
   { label: '归档查询', route: '/archive' }
 ])
+
+onMounted(async () => {
+  try {
+    const res = await getDashboardStats()
+    const s = res.data
+    statCards.value[0].count = s.businessAcceptance || 0
+    statCards.value[1].count = (s.surveyDispatch || 0) + (s.fieldSurvey || 0)
+    statCards.value[2].count = s.approval || 0
+    statCards.value[3].count = s.total || 0
+  } catch (e) {
+    console.error('获取统计数据失败', e)
+  }
+})
 </script>

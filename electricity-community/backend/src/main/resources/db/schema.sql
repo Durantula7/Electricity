@@ -2,9 +2,6 @@
 -- 小区新装业务管理系统 - 数据库初始化脚本
 -- =============================================
 
-CREATE DATABASE IF NOT EXISTS electricity_community DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE electricity_community;
-
 -- =============================================
 -- 系统管理表
 -- =============================================
@@ -352,20 +349,35 @@ CREATE TABLE plan_reply_info (
 
 -- 01_099_013 应收业务费
 DROP TABLE IF EXISTS receivable_fee;
-CREATE TABLE receivable_fee (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    application_id BIGINT NOT NULL COMMENT '申请ID',
-    fee_project VARCHAR(100) NOT NULL COMMENT '收费项目',
-    receivable_amount DECIMAL(12,2) COMMENT '应收金额',
-    fee_determine_time DATETIME COMMENT '费用确定时间',
-    fee_determiner_id BIGINT COMMENT '确定人ID',
-    fee_determiner_name VARCHAR(50) COMMENT '确定人',
-    fee_standard VARCHAR(200) COMMENT '收费标准',
-    is_printed TINYINT DEFAULT 0 COMMENT '是否已打印通知单',
-    primary KEY (id),
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    deleted TINYINT DEFAULT 0,
-    INDEX idx_application_id (application_id)
+-- CREATE TABLE receivable_fee (
+--     id BIGINT AUTO_INCREMENT PRIMARY KEY,
+--     application_id BIGINT NOT NULL COMMENT '申请ID',
+--     fee_project VARCHAR(100) NOT NULL COMMENT '收费项目',
+--     receivable_amount DECIMAL(12,2) COMMENT '应收金额',
+--     fee_determine_time DATETIME COMMENT '费用确定时间',
+--     fee_determiner_id BIGINT COMMENT '确定人ID',
+--     fee_determiner_name VARCHAR(50) COMMENT '确定人',
+--     fee_standard VARCHAR(200) COMMENT '收费标准',
+--     is_printed TINYINT DEFAULT 0 COMMENT '是否已打印通知单',
+--     primary KEY (id),
+--     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+--     deleted TINYINT DEFAULT 0,
+--     INDEX idx_application_id (application_id)
+-- ) COMMENT '应收业务费(01_099_013)';
+CREATE TABLE receivable_fee ( 
+    id BIGINT AUTO_INCREMENT PRIMARY KEY, 
+    application_id BIGINT NOT NULL COMMENT '申请ID', 
+    fee_project VARCHAR(100) NOT NULL COMMENT '收费项目', 
+    receivable_amount DECIMAL(12,2) COMMENT '应收金额', 
+    fee_determine_time DATETIME COMMENT '费用确定时间', 
+    fee_determiner_id BIGINT COMMENT '确定人ID', 
+    fee_determiner_name VARCHAR(50) COMMENT '确定人', 
+    fee_standard VARCHAR(200) COMMENT '收费标准', 
+    is_printed TINYINT DEFAULT 0 COMMENT '是否已打印通知单', 
+    -- 删除这一行 → primary KEY (id),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP, 
+    deleted TINYINT DEFAULT 0, 
+    INDEX idx_application_id (application_id) 
 ) COMMENT '应收业务费(01_099_013)';
 
 -- 01_099_014 实收业务费
