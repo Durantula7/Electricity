@@ -62,14 +62,15 @@ public class ApplicationController {
     }
 
     @PostMapping("/{id}/submit")
-    public Result<Void> submit(@PathVariable Long id, @RequestBody Map<String, Object> body) {
+    public Result<ApplicationInfo> submit(@PathVariable Long id, @RequestBody Map<String, Object> body) {
         Long userId = getUserId(body);
         String userName = getUserName(body);
+        String comment = (String) body.getOrDefault("comment", "提交");
         Boolean hasProject = (Boolean) body.getOrDefault("hasProject", false);
         Boolean skipDispatch = (Boolean) body.getOrDefault("skipDispatch", false);
-        applicationService.submitApplication(id, userId, userName,
-                hasProject != null && hasProject, skipDispatch != null && skipDispatch);
-        return Result.ok();
+        ApplicationInfo app = applicationService.submitApplication(id, userId, userName,
+                comment != null ? comment : "提交", hasProject != null && hasProject, skipDispatch != null && skipDispatch);
+        return Result.ok(app);
     }
 
     @GetMapping("/my-tasks")

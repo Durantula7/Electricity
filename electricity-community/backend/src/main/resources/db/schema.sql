@@ -31,6 +31,7 @@ CREATE TABLE sys_role (
     role_name VARCHAR(50) NOT NULL COMMENT '角色名称',
     description VARCHAR(200) COMMENT '描述',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0
 ) COMMENT '角色';
 
@@ -44,6 +45,7 @@ CREATE TABLE sys_dict (
     sort_order INT DEFAULT 0 COMMENT '排序',
     remark VARCHAR(200) COMMENT '备注',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0,
     UNIQUE KEY uk_type_code (dict_type, dict_code)
 ) COMMENT '数据字典';
@@ -129,6 +131,7 @@ CREATE TABLE electrical_equipment (
     phase_type VARCHAR(10) COMMENT '相数',
     remark VARCHAR(200) COMMENT '备注',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0,
     INDEX idx_application_id (application_id)
 ) COMMENT '用电设备信息(01_099_002)';
@@ -146,6 +149,7 @@ CREATE TABLE receiving_equipment_plan (
     voltage_level VARCHAR(20) COMMENT '电压等级',
     remark VARCHAR(200) COMMENT '备注',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0,
     INDEX idx_application_id (application_id)
 ) COMMENT '受电设备方案信息(01_099_032)';
@@ -186,6 +190,7 @@ CREATE TABLE process_record (
     send_time DATETIME COMMENT '发送时间',
     duration_hours DECIMAL(10,2) COMMENT '处理时长(小时)',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0,
     INDEX idx_application_id (application_id),
     INDEX idx_process_step (process_step)
@@ -286,6 +291,7 @@ CREATE TABLE power_source_info (
     line_laying VARCHAR(100) COMMENT '线路敷设方式',
     metering_point VARCHAR(200) COMMENT '考核计量点',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0,
     INDEX idx_application_id (application_id),
     INDEX idx_plan_id (power_plan_id)
@@ -303,6 +309,7 @@ CREATE TABLE plan_template (
     power_supply_mode VARCHAR(50) COMMENT '供电方式',
     template_content TEXT COMMENT '模板内容',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0
 ) COMMENT '供电方案模板(01_099_033)';
 
@@ -320,6 +327,7 @@ CREATE TABLE approval_info (
     approval_time DATETIME COMMENT '审批时间',
     approval_mode VARCHAR(20) COMMENT '审批方式 parallel/serial',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0,
     INDEX idx_application_id (application_id),
     INDEX idx_approver (approver_id)
@@ -343,6 +351,7 @@ CREATE TABLE plan_reply_info (
     print_time DATETIME COMMENT '打印时间',
     print_person VARCHAR(50) COMMENT '打印人',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0,
     INDEX idx_application_id (application_id)
 ) COMMENT '供电方案答复信息(01_099_012)';
@@ -375,8 +384,9 @@ CREATE TABLE receivable_fee (
     fee_standard VARCHAR(200) COMMENT '收费标准', 
     is_printed TINYINT DEFAULT 0 COMMENT '是否已打印通知单', 
     -- 删除这一行 → primary KEY (id),
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP, 
-    deleted TINYINT DEFAULT 0, 
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted TINYINT DEFAULT 0,
     INDEX idx_application_id (application_id) 
 ) COMMENT '应收业务费(01_099_013)';
 
@@ -401,6 +411,7 @@ CREATE TABLE received_fee (
     check_bank VARCHAR(100) COMMENT '支票银行',
     check_status VARCHAR(20) COMMENT '支票状态',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0,
     INDEX idx_application_id (application_id)
 ) COMMENT '实收业务费(01_099_014)';
@@ -423,6 +434,7 @@ CREATE TABLE project_design_info (
     registrar_name VARCHAR(50) COMMENT '登记人',
     register_time DATETIME COMMENT '登记时间',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0,
     INDEX idx_application_id (application_id)
 ) COMMENT '供电工程设计信息(01_099_017)';
@@ -442,6 +454,7 @@ CREATE TABLE project_design_review (
     registrar_name VARCHAR(50) COMMENT '登记人',
     register_time DATETIME COMMENT '登记时间',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0,
     INDEX idx_application_id (application_id)
 ) COMMENT '供电工程设计文件审核结果(01_099_019)';
@@ -457,6 +470,7 @@ CREATE TABLE project_budget (
     registrar_name VARCHAR(50) COMMENT '登记人',
     register_time DATETIME COMMENT '登记时间',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0,
     INDEX idx_application_id (application_id)
 ) COMMENT '供电工程预算结果(01_099_020)';
@@ -471,6 +485,7 @@ CREATE TABLE project_fee_collection (
     fee_time DATETIME COMMENT '收费时间',
     received_amount DECIMAL(12,2) COMMENT '实收金额',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0,
     INDEX idx_application_id (application_id)
 ) COMMENT '供电工程费收取结果(01_099_021)';
@@ -485,6 +500,7 @@ CREATE TABLE project_equipment_supply (
     registrar_name VARCHAR(50) COMMENT '登记人',
     register_time DATETIME COMMENT '登记时间',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0,
     INDEX idx_application_id (application_id)
 ) COMMENT '供电工程设备供应结果(01_099_022)';
@@ -503,6 +519,7 @@ CREATE TABLE project_construction (
     registrar_name VARCHAR(50) COMMENT '登记人',
     register_time DATETIME COMMENT '登记时间',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0,
     INDEX idx_application_id (application_id)
 ) COMMENT '供电工程施工结果(01_099_023)';
@@ -518,6 +535,7 @@ CREATE TABLE project_final_account (
     registrar_name VARCHAR(50) COMMENT '登记人',
     register_time DATETIME COMMENT '登记时间',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0,
     INDEX idx_application_id (application_id)
 ) COMMENT '供电工程决算信息(01_099_024)';
@@ -533,6 +551,7 @@ CREATE TABLE project_quality_supervision (
     inspection_time DATETIME COMMENT '检查时间',
     quality_rating VARCHAR(20) COMMENT '质量评级结果',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0,
     INDEX idx_application_id (application_id)
 ) COMMENT '供电工程质量监督信息(01_099_800)';
@@ -548,6 +567,7 @@ CREATE TABLE project_supervision (
     start_date DATE COMMENT '监理开始日期',
     end_date DATE COMMENT '监理结束日期',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0,
     INDEX idx_application_id (application_id)
 ) COMMENT '供电工程监理信息(01_099_015)';
@@ -576,6 +596,7 @@ CREATE TABLE design_review_info (
     registrar_name VARCHAR(50) COMMENT '登记人',
     register_time DATETIME COMMENT '登记时间',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0,
     INDEX idx_application_id (application_id)
 ) COMMENT '设计文件审核信息(01_099_018)';
@@ -614,6 +635,7 @@ CREATE TABLE completion_apply_info (
     apply_version INT DEFAULT 1 COMMENT '报验版本/次数',
     material_complete TINYINT DEFAULT 0 COMMENT '材料是否齐全',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0,
     INDEX idx_application_id (application_id)
 ) COMMENT '报验资料信息(01_099_026)';
@@ -628,6 +650,7 @@ CREATE TABLE completion_apply_opinion (
     opinion_person VARCHAR(50) COMMENT '出具人',
     opinion_time DATETIME COMMENT '出具时间',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0,
     INDEX idx_application_id (application_id)
 ) COMMENT '报验资料意见信息(01_099_027)';
@@ -642,6 +665,7 @@ CREATE TABLE acceptance_notice (
     notice_time DATETIME COMMENT '通知时间',
     notice_dept VARCHAR(100) COMMENT '通知部门',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0,
     INDEX idx_application_id (application_id)
 ) COMMENT '验收通知信息(01_099_028)';
@@ -658,6 +682,7 @@ CREATE TABLE completion_check_info (
     overall_assessment VARCHAR(500) COMMENT '总体评价',
     check_version INT DEFAULT 1 COMMENT '验收版本',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0,
     INDEX idx_application_id (application_id)
 ) COMMENT '竣工验收信息(01_099_029)';
@@ -674,6 +699,7 @@ CREATE TABLE completion_check_detail (
     is_qualified TINYINT COMMENT '是否合格',
     remark VARCHAR(200) COMMENT '备注',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0,
     INDEX idx_application_id (application_id),
     INDEX idx_check_id (check_id)
@@ -693,6 +719,7 @@ CREATE TABLE rectification_notice (
     result_confirm_person VARCHAR(50) COMMENT '结果确认人',
     result_confirm_time DATETIME COMMENT '结果确认时间',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0,
     INDEX idx_application_id (application_id)
 ) COMMENT '整改通知信息(01_099_031)';
@@ -712,6 +739,7 @@ CREATE TABLE receiving_equipment (
     manufacturer VARCHAR(100) COMMENT '生产厂家',
     installation_location VARCHAR(200) COMMENT '安装位置',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0,
     INDEX idx_application_id (application_id)
 ) COMMENT '受电设备信息(01_099_010)';
@@ -729,6 +757,7 @@ CREATE TABLE archive_info (
     material_list TEXT COMMENT '归档材料清单',
     is_complete TINYINT DEFAULT 0 COMMENT '资料是否完整',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0,
     UNIQUE KEY uk_application_id (application_id)
 ) COMMENT '业务资料归档信息(01_099_042)';
@@ -746,6 +775,7 @@ CREATE TABLE batch_household (
     capacity DECIMAL(12,2) COMMENT '容量(kVA)',
     customer_type VARCHAR(20) COMMENT '客户类型',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted TINYINT DEFAULT 0,
     INDEX idx_application_id (application_id)
 ) COMMENT '低压批量用户明细';

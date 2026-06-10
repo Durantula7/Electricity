@@ -101,9 +101,10 @@ public class ApplicationService {
     }
 
     @Transactional
-    public void submitApplication(Long id, Long operatorId, String operatorName,
-                                   boolean hasProject, boolean skipDispatch) {
-        workflowEngine.submitToNext(id, operatorId, operatorName, "提交", hasProject, skipDispatch);
+    public ApplicationInfo submitApplication(Long id, Long operatorId, String operatorName,
+                                   String comment, boolean hasProject, boolean skipDispatch) {
+        workflowEngine.submitToNext(id, operatorId, operatorName, comment, hasProject, skipDispatch);
+        return applicationInfoMapper.selectById(id);
     }
 
     public CustomerInfo getCustomerInfo(Long applicationId) {
